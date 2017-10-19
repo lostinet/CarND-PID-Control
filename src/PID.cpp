@@ -33,8 +33,8 @@ void PID::Init(double kp, double ki, double kd)
     has_prev_cte_ = false;
     prev_cte_ = 0;
     
-//    // switch on/ff twiddle
-//    activate_twiddle = true;
+    // switch on/ff twiddle
+    activate_twiddle = true;
     
     // step counter
     step = 1;
@@ -87,7 +87,15 @@ double PID::TotalError() {
 //    cout << "  Total_error = " << total_error << endl;
      cout << "step: " << step << endl;
     //        cout << " step: " << step << endl;
+        if(best_error > 1e9) {
+            
+            best_error = total_error;
+            
+            std::cout << "New best Kp: " << Kp << " Ki: " << Ki
+            << " Kd: " << Kd << " Error: " << best_error << std::endl;
+            cout<<'\n';
 
+        }
         // if any improvement, then print out the best error and PID setup
         if (total_error < best_error && step > n) {
             
